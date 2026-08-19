@@ -1,0 +1,1940 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Vijaita Ghosh — Product Designer</title>
+
+<!-- Inter Display isn't on Google Fonts, so Inter (same family, closest
+     match) is loaded here as the live fallback. Swap in real InterDisplay
+     .woff2 files via @font-face below if you have them — nothing else
+     needs to change since every element reads from --font-display. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+
+<style>
+/* ============================================================
+   DESIGN SYSTEM
+   ============================================================ */
+:root{
+  --ink: #323232;
+  --accent: #FB2D03;
+  --muted: #757575;
+  --hairline: #e7e5e2;
+  --panel: #f7f6f4;
+  --panel-line: #ececea;
+
+  /* image-frame placeholder — light grey, 24px padding, nothing inside */
+  --frame-grey: #F8F8F8;
+  --frame-inner: #F8F8F8;
+  --frame-pad: 24px;
+
+  --font-display: 'InterDisplay', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --h1-size: 42px;      /* main/top heading only */
+  --text-size: 20px;    /* every other piece of text on the site */
+
+  --edge-space: 200px;
+  --section-gap: 80px;
+  --inner-gap: 50px;
+}
+
+*{ box-sizing: border-box; }
+html{ scroll-behavior: smooth; }
+
+body{
+  margin: 0;
+  font-family: var(--font-display);
+  color: var(--ink);
+  background: #ffffff;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.6;
+}
+a{ color: inherit; }
+ul, ol{ margin: 0; }
+
+/* Only the main/top H1 on each page is 42px Semi Bold.
+   Every other heading tag falls back to the base 20px text size. */
+h1{
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: var(--h1-size);
+  color: var(--ink);
+  margin: 0;
+}
+h2, h3, h4, h5{
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: var(--text-size);
+  color: var(--ink);
+  margin: 0;
+}
+p, li{
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: var(--text-size);
+  color: var(--ink);
+  margin: 0;
+}
+
+.label-sm{
+  text-transform: uppercase;
+  font-size: var(--text-size);
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  color: var(--muted);
+}
+.eyebrow{
+  text-transform: uppercase;
+  font-size: var(--text-size);
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  color: var(--ink);
+}
+/* Landing page only — "Projects" and "Experience" headings */
+#projects .eyebrow, #experience .eyebrow{ color: #757575; }
+.italic-heading{ font-style: italic; font-weight: 600; font-size: 24px; }
+
+blockquote{
+  margin: 0;
+  padding: 4px 0 4px 24px;
+  border-left: 3px solid var(--accent);
+  font-style: italic;
+  font-size: var(--text-size);
+  color: #757575;
+  max-width: 1200px;
+}
+.hairline{ border: none; border-top: 1px solid var(--hairline); }
+
+/* ---------- Page / section layout ---------- */
+.page{ display: none; }
+.page.active{ display: block; }
+
+.container{
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 var(--edge-space);
+}
+.section{ padding-top: var(--section-gap); }
+.section:first-of-type{ padding-top: 120px; }
+
+/* ---------- Back link ---------- */
+.back-link{
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: var(--text-size);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  color: var(--ink);
+  text-transform: uppercase;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  margin-bottom: 28px;
+  font-family: inherit;
+}
+.back-link svg{
+  width: 20px;
+  height: 20px;
+  transition: transform .2s ease;
+}
+.back-link:hover svg{
+  transform: translateX(-3px);
+}
+
+/* ============================================================
+   IMAGE FRAME — light-grey placeholder, 24px padding, empty inside.
+   Drop a real <img> inside .img-inner in VS Code later — sizing and
+   hover-zoom are already wired up either way.
+   ============================================================ */
+.img-frame{
+  background: var(--frame-grey);
+  padding: var(--frame-pad);
+  border-radius: 8px;
+  width: 100%;
+}
+.img-frame .img-inner{
+  width: 100%;
+  height: 100%;
+  background: var(--frame-inner);
+  overflow: hidden;
+  position: relative;
+  border-radius: 8px;
+}
+.img-frame .img-inner img{
+  width: 100%; height: 100%; object-fit: cover; display: block;
+  transition: transform .4s ease;
+}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+footer{ padding-top: 140px; padding-bottom: 120px; text-align: center; }
+/* Illustration removed — reserved space kept so a replacement can be
+   dropped in later without needing to touch layout/spacing. */
+.footer-illustration{
+  height: 70px;
+  margin: 0 auto 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.footer-illustration img{
+  width: 120px;
+  height: 120px;
+  object-fit: contain;
+}
+.footer-tag{ font-size: var(--text-size); font-weight: 400; color: #323232; margin: 0 0 32px; }
+.footer-tag .accent{ color: #323232; font-weight: 400; }
+.footer-social{ display: flex; justify-content: center; gap: 12px; }
+.footer-social a{
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: #F8F8F8;
+  border: 1px solid #F8F8F8;
+  display: flex; align-items: center; justify-content: center;
+  text-decoration: none; color: var(--ink);
+  transition: background .2s ease, transform .2s ease;
+}
+.footer-social a:hover{ background: #efeeeb; transform: translateY(-2px); }
+.footer-social svg{
+  width: 20px;
+  height: 20px;
+  color: #323232;
+}
+
+/* ============================================================
+   LANDING PAGE
+   ============================================================ */
+.hero{ display: grid; grid-template-columns: 1fr auto; align-items: stretch; gap: 40px; }
+.hero-avatar.img-frame{
+  width: 140px;
+  height: 140px;
+  aspect-ratio: 1/1;
+  padding: 0;
+  margin-bottom: var(--inner-gap);
+  transform: rotate(-4deg);
+}
+
+.hero-avatar.img-frame .img-inner img{
+  transition: transform 0.60s ease;
+}
+
+.hero-avatar.img-frame:hover .img-inner img{
+  transform: scale(1.20);
+}
+.hero-intro p{ margin-bottom: 20px; max-width: 620px; color: #323232; }
+.hero-intro p:last-child{ margin-bottom: 0; }
+.hero-intro .name-link{
+  font-weight: 600; color: var(--ink);
+  text-decoration: underline; text-decoration-color: var(--accent); text-decoration-style: wavy;
+  cursor: pointer; background: none; border: none; font-family: inherit; font-size: inherit; padding: 0;
+}
+.hero-meta{ text-align: right; display: flex; flex-direction: column; height: 100%; }
+.hero-meta .datetime{
+  font-size: var(--text-size); font-weight: 400; color: var(--muted);
+  white-space: nowrap;
+  /* aligns with the intro text baseline, below the 150px avatar + its margin */
+  margin-top: calc(150px + var(--inner-gap));
+  margin-bottom: 0;
+}
+.hero-meta .footer-social{ justify-content: flex-end; margin-top: auto; }
+
+.projects-grid{
+  display: flex;
+  flex-direction: column;
+  gap: 80px;
+  margin-top: var(--inner-gap);
+}
+
+.project-card{
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  background: none;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  font-family: inherit;
+  padding: 0;
+  width: 100%;
+}
+
+.project-card .img-frame{
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 0 16px 0;
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid #EDEDED;
+  border-radius: 8px;
+  background: none;
+  box-sizing: border-box;
+  isolation: isolate;
+}
+
+.project-card .img-inner{
+  width: 100%;
+  height: auto;
+  overflow: hidden;
+  border-radius: 0;
+}
+
+.project-card .img-inner img{
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+}
+
+.project-card .project-title{
+  width: 100%;
+  font-size: var(--text-size);
+  font-weight: 400;
+  margin: 0 0 6px 0;
+}
+
+.project-card .project-title b{
+  font-weight: 600;
+}
+
+.project-card .project-title .arrow{
+  display: inline-block;
+  margin: 0 4px;
+  transition: transform .2s ease;
+}
+
+.project-card:hover .project-title .arrow{
+  transform: translateX(4px);
+}
+
+.project-card .project-desc{
+  width: 100%;
+  font-size: var(--text-size);
+  font-weight: 400;
+  color: #323232;
+  line-height: 1.55;
+}
+
+/* ============================================================
+   ABOUT PAGE
+   ============================================================ */
+.about-heading{ margin-bottom: var(--inner-gap); }
+.about-copy p{ margin-bottom: 20px; max-width: 880px; color: #323232; }
+.about-copy p:last-child{ margin-bottom: 0; }
+.about-copy a{ font-weight: 600; text-decoration: underline; text-decoration-color: var(--accent); text-decoration-style: wavy; }
+/* Shared link style used elsewhere (About page LinkedIn/email links) —
+   reused here for "DM" / "email" in the landing page intro. */
+.text-link{ font-weight: 600; text-decoration: underline; text-decoration-color: var(--accent); text-decoration-style: wavy; color: inherit; }
+.interest-group{
+  margin-top: var(--inner-gap);
+}
+
+.interest-group .label-sm{
+  display: block;
+  margin-bottom: 16px;
+  font-weight: 500;
+}
+
+.interest-grid{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.interest-card{
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  border: 0;
+  transition: color 0.25s ease;
+}
+
+.interest-card .img-frame{
+  aspect-ratio: 1/1;
+  margin: 8px 0 !important;
+  padding: 0;
+  border: 0;
+}
+
+.interest-card .img-inner{
+  border: 0;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.interest-card .img-inner img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.35s ease;
+}
+
+.interest-card:hover .img-inner img{
+  transform: scale(1.04);
+}
+
+.interest-grid:has(.interest-card:hover) .interest-card:not(:hover) .interest-title{
+  color: #757575;
+}
+
+.interest-card .interest-title{
+  font-size: var(--text-size);
+  font-weight: 600;
+  margin: 0;
+  transition: color 0.25s ease;
+}
+
+/* ============================================================
+   CASE STUDY PAGES
+   ============================================================ */
+.case-hero h1{ line-height: 1.2; margin-bottom: 20px; max-width: 1200px; }
+.case-hero .case-intro{ color: #323232; max-width: 1200px; margin-bottom: var(--inner-gap); }
+.case-live-link{
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: var(--text-size);
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-color: var(--accent);
+  text-decoration-style: wavy;
+  color: var(--ink);
+  border-bottom: none;
+  padding-bottom: 3px;
+  margin-bottom: var(--inner-gap);
+}
+.case-live-link svg{ width: 20px; height: 20px; transition: transform .2s ease; }
+.case-live-link:hover svg{ transform: translateX(4px); }
+.meta-grid{ display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); row-gap: 32px; column-gap: 40px; padding-top: var(--inner-gap); max-width: 640px; }
+.meta-item .label-sm{ margin-bottom: 8px; }
+.meta-item .value{ font-size: var(--text-size); font-weight: 400; }
+/* Smart Recruiter — Team value ("Manager, Team Mates, Developers") stays
+   on one line without forcing the meta-grid columns to resize; it can
+   overflow its column to the right since it's the last/rightmost item. */
+#sr-team-item .value{ white-space: nowrap; }
+.case-body p{ color: #323232; max-width: 1200px; margin-bottom: 20px; }
+.case-body p:last-child{ margin-bottom: 0; }
+.case-body p b{ color: var(--ink); }
+.case-body ul, .case-body ol{ max-width: 860px; padding-left: 22px; margin-bottom: 20px; }
+.case-body li{ margin-bottom: 8px; color: #323232; }
+.case-subheading{ font-size: var(--text-size); font-weight: 600; margin: var(--inner-gap) 0 20px; }
+.case-subheading.italic{ font-style: italic; font-weight: 600; }
+/* Qubit only — "What we heard from the team!" and "How we understood the users" */
+[data-page="qubit"] .case-subheading.italic{ font-size: 24px; color: #323232; }
+.persona-grid{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  margin: var(--inner-gap) 0;
+}
+
+.persona-grid.thirds{
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.persona-card{
+  background: #F8F8F8;
+  border: none;
+  border-radius: 12px;
+  padding: 26px 24px;
+}
+
+.persona-card h3{
+  font-size: var(--text-size);
+  font-weight: 600;
+  margin-bottom: 14px;
+}
+
+.persona-card h3 span{
+  font-weight: 400;
+  color: #757575;
+}
+
+.persona-card hr{
+  border: none;
+  border-top: 1px solid var(--panel-line);
+  margin: 0 0 16px;
+}
+
+.persona-card ul{
+  padding-left: 18px;
+  margin: 0;
+}
+
+.persona-card li{
+  font-style: italic;
+  font-weight: 400;
+  color: #757575;
+  font-size: var(--text-size);
+  margin-bottom: 10px;
+}
+
+.persona-card li:last-child{
+  margin-bottom: 0;
+}
+
+
+/* Qubit only — replace bullet with orange vertical line */
+
+[data-page="qubit"] .persona-card li{
+  list-style: none;
+  position: relative;
+}
+
+[data-page="qubit"] .persona-card li::before{
+  content: "";
+  position: absolute;
+  left: -18px;
+  top: 0;
+  width: 3px;
+  height: 100%;
+  background: var(--accent);
+}
+.feature-list{ margin-top: 20px; }
+.feature-row{ margin-bottom: 22px; max-width: 860px; }
+.feature-row:last-child{ margin-bottom: 0; }
+.feature-row .ftitle{ font-weight: 600; font-size: var(--text-size); margin-bottom: 4px; }
+.feature-row .fdesc{ font-size: var(--text-size); font-weight: 400; color: #323232; }
+.screen-block{
+  margin-top: 30px;
+}
+
+.screen-block:first-of-type{
+  margin-top: var(--inner-gap);
+}
+
+.screen-block .screen-num{
+  font-size: var(--text-size);
+  font-weight: 600;
+  margin-bottom: 18px;
+}
+
+.screen-block .img-frame img{
+  object-fit: contain;
+}
+
+.screen-block .img-frame{
+  margin: 40px 0 !important;
+}
+.impact-text{ color: #323232; max-width: 880px; }
+.impact-text b{ color: var(--ink); }
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+
+@media (max-width: 1100px){
+
+  :root{
+
+    --edge-space: 80px;
+
+  }
+
+}
+
+
+/* ============================================================
+   TABLET
+   ============================================================ */
+
+@media (max-width: 900px){
+
+  .hero{
+
+    grid-template-columns: 1fr;
+
+  }
+
+  .hero-meta{
+
+    text-align: left;
+
+    height: auto;
+
+  }
+
+  .hero-meta .datetime{
+
+    margin-top: var(--inner-gap);
+
+  }
+
+  .hero-meta .footer-social{
+
+    justify-content: flex-start;
+
+    margin-top: var(--inner-gap);
+
+  }
+
+  .projects-grid{
+
+    grid-template-columns: 1fr;
+
+  }
+
+  .interest-grid{
+
+    grid-template-columns: 1fr 1fr;
+
+  }
+
+  .persona-grid,
+
+  .persona-grid.thirds{
+
+    grid-template-columns: 1fr;
+
+  }
+
+  .meta-grid{
+
+    grid-template-columns: 1fr 1fr;
+
+  }
+
+}
+
+
+/* ============================================================
+   MOBILE
+   ============================================================ */
+
+@media (max-width: 700px){
+
+  :root{
+
+    --edge-space: 12px;
+
+    --section-gap: 60px;
+
+    --inner-gap: 16px;
+
+  }
+
+
+  /* ==========================================================
+     TOP SPACE — ALL MOBILE PAGES
+     ========================================================== */
+
+  .section:first-of-type{
+
+    padding-top: 60px !important;
+
+  }
+
+
+  /* ==========================================================
+     FOOTER
+     ========================================================== */
+
+  footer{
+
+    padding-top: 80px;
+
+    padding-bottom: 60px;
+
+  }
+
+
+  /* ==========================================================
+     FOOTER ILLUSTRATION
+     ========================================================== */
+
+  footer .footer-illustration{
+
+    max-width: calc(100% - 10px);
+
+  }
+
+
+  /* ==========================================================
+     CASE STUDY IMAGE FRAMES
+     ========================================================== */
+
+  .case-body .img-frame,
+
+  .case-hero .img-frame,
+
+  .screen-block .img-frame{
+
+    padding: 8px !important;
+
+  }
+
+
+  /* ==========================================================
+     MOBILE TYPOGRAPHY
+     ========================================================== */
+
+  h1,
+
+  .case-hero h1{
+
+    font-size: 28px;
+
+    line-height: 1.25;
+
+    font-weight: 600;
+
+  }
+
+
+  h2,
+
+  h3,
+
+  h4{
+
+    font-weight: 500;
+
+  }
+
+
+  body,
+
+  p,
+
+  .case-body p,
+
+  .case-intro{
+
+    font-size: 20px;
+
+    line-height: 1.5;
+
+    font-weight: 400;
+
+  }
+
+
+  .case-subheading{
+
+    font-size: 20px;
+
+    line-height: 1.4;
+
+    font-weight: 500;
+
+  }
+
+
+  .case-subheading.italic{
+
+    font-size: 20px;
+
+    line-height: 1.4;
+
+    font-weight: 600;
+
+    font-style: italic;
+
+  }
+
+
+  /* ==========================================================
+     HIGHLIGHTED BODY TEXT
+     ========================================================== */
+
+  .case-body strong,
+
+  .case-body b,
+
+  .case-intro strong,
+
+  .case-intro b{
+
+    font-size: 20px;
+
+    font-weight: 600;
+
+  }
+
+
+  /* ==========================================================
+     BACK LINK
+     ========================================================== */
+
+  .back-link{
+
+    display: inline-flex;
+
+    align-items: center;
+
+    margin-top: 0;
+
+    margin-bottom: 12px;
+
+    font-size: 20px;
+
+    line-height: 1.4;
+
+    font-weight: 600;
+
+  }
+
+
+  .back-link svg,
+
+  .back-link img,
+
+  .back-link .arrow{
+
+    display: inline-flex;
+
+    align-items: center;
+
+    vertical-align: middle;
+
+  }
+
+
+  .case-live-link{
+
+    font-size: 20px;
+
+    line-height: 1.4;
+
+    font-weight: 500;
+
+  }
+
+
+/* ==========================================================
+   CASE STUDY SEPARATORS — MOBILE
+
+   TJB + SIDEKICK:
+   24PX TOP + 24PX BOTTOM
+
+   QUBIT + SMART RECRUITER:
+   36PX TOP + 24PX BOTTOM
+   ========================================================== */
+
+.case-hero .hairline{
+
+  margin-top: 24px !important;
+
+  margin-bottom: 24px !important;
+
+}
+
+[data-page="qubit"] .case-hero .hairline,
+[data-page="smart-recruiter"] .case-hero .hairline{
+
+  margin-top: 36px !important;
+
+  margin-bottom: 24px !important;
+
+}
+
+
+  /* ==========================================================
+     ABOUT PAGE SEPARATOR — MOBILE
+     
+     ABOUT ONLY:
+     60PX TOP + 60PX BOTTOM
+     ========================================================== */
+
+  .hairline:has(+ .italic-heading){
+
+    margin-top: 60px !important;
+
+    margin-bottom: 60px !important;
+
+  }
+
+
+  .hairline:has(+ .italic-heading) + .italic-heading{
+
+    margin-top: 0 !important;
+
+  }
+
+
+  /* ==========================================================
+     LANDING PAGE
+     PROFILE IMAGE → INTRO TEXT
+     ========================================================== */
+
+  .hero-avatar{
+
+    margin-bottom: 24px !important;
+
+  }
+
+
+  /* ==========================================================
+     SCREEN LABELS
+     ========================================================== */
+
+  .screen-block .screen-num{
+
+    font-size: 20px;
+
+    line-height: 1.4;
+
+    font-weight: 500;
+
+  }
+
+
+  /* ==========================================================
+     META
+     ========================================================== */
+
+  .meta-item .label-sm{
+
+    font-size: 20px;
+
+    line-height: 1.4;
+
+    font-weight: 500;
+
+  }
+
+
+  .meta-item .value{
+
+    font-size: 20px;
+
+    line-height: 1.5;
+
+    font-weight: 400;
+
+  }
+
+
+  /* ==========================================================
+     PROJECTS — LANDING PAGE
+     ========================================================== */
+
+  .projects-grid{
+
+    grid-template-columns: 1fr;
+
+    gap: 40px;
+
+  }
+
+
+  .project-card{
+
+    width: 100%;
+
+  }
+
+
+  .project-card .img-frame{
+
+    width: 100%;
+
+    max-width: none;
+
+    margin-bottom: 12px;
+
+  }
+
+
+  .project-card .project-title{
+
+    width: 100%;
+
+    font-size: 20px;
+
+    line-height: 1.4;
+
+    font-weight: 400;
+
+  }
+
+
+  .project-card .project-title b{
+
+    font-weight: 600;
+
+  }
+
+
+  .project-card .project-desc{
+
+    width: 100%;
+
+    font-size: 20px;
+
+    line-height: 1.5;
+
+    font-weight: 400;
+
+  }
+
+
+  /* ==========================================================
+     ABOUT PAGE — THINGS I LIKE / INTERESTS
+     ========================================================== */
+
+  .hairline + .italic-heading{
+
+    margin-top: 60px !important;
+
+  }
+
+
+  .interest-group{
+
+    margin-top: 60px !important;
+
+  }
+
+
+  .interest-group .label-sm{
+
+    display: block;
+
+    margin-bottom: 12px;
+
+    font-size: 20px;
+
+    line-height: 1.4;
+
+    font-weight: 600;
+
+  }
+
+
+  .interest-grid{
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 20px;
+
+  }
+
+
+  .interest-card .img-frame{
+
+    width: 100%;
+
+    height: 280px !important;
+
+    aspect-ratio: auto !important;
+
+    margin: 0 0 12px 0 !important;
+
+    padding: 0 !important;
+
+  }
+
+
+  .interest-card .img-inner{
+
+    width: 100%;
+
+    height: 100%;
+
+    overflow: hidden;
+
+  }
+
+
+  .interest-card .img-inner img{
+
+    width: 100%;
+
+    height: 100%;
+
+    object-fit: cover;
+
+    display: block;
+
+  }
+
+
+  .interest-card .interest-title{
+
+    font-size: 20px;
+
+    line-height: 1.4;
+
+    font-weight: 600 !important;
+
+    margin: 0;
+
+  }
+
+
+  /* ==========================================================
+     META GRID
+     ========================================================== */
+
+  .meta-grid{
+
+    grid-template-columns: 1fr;
+
+    gap: 12px;
+
+  }
+
+
+  /* ==========================================================
+     PERSONA CARDS
+     ========================================================== */
+
+  .persona-grid,
+
+  .persona-grid.thirds{
+
+    grid-template-columns: 1fr;
+
+    gap: 12px;
+
+  }
+
+
+  .persona-grid .persona-card{
+
+    font-size: 20px;
+
+    line-height: 1.5;
+
+    font-weight: 400;
+
+  }
+
+
+  .persona-grid .persona-card strong,
+
+  .persona-grid .persona-card b{
+
+    font-size: 20px;
+
+    font-weight: 600;
+
+  }
+
+}
+
+
+/* ============================================================
+   SMALL MOBILE
+   ============================================================ */
+
+@media (max-width: 520px){
+
+  .interest-grid{
+
+    grid-template-columns: 1fr;
+
+    gap: 20px;
+
+  }
+
+}
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     PROJECT LINKS — edit here.
+     Internal values ("landing", "smart-recruiter", etc.) route within
+     this same prototype. Replace any value with a full external URL
+     (e.g. "https://...") and the routing code below will open it in a
+     new tab automatically instead.
+     ============================================================ -->
+<script>
+  const PROJECT_LINKS = {
+    smartRecruiter: "smart-recruiter",
+    qubit: "qubit",
+    tjb: "tjb",
+    sidekick: "sidekick",
+  };
+</script>
+
+<!-- ============================================================
+     LANDING PAGE
+     ============================================================ -->
+<div class="page active" data-page="landing">
+  <div class="container">
+
+    <section class="section hero">
+      <div class="hero-intro">
+        <!-- ADD PROFILE PHOTO HERE -->
+        <div class="img-frame hero-avatar"><div class="img-inner"><img src="assets/images/NEWME.jpeg" alt="Vijaita Ghosh"></div></div>
+
+        <p>Hey there! I'm <button type="button" class="name-link" data-nav="about">Vijaita</button> 👋</p>
+        <p>A product designer with 2 years of experience designing SaaS, digital products, websites, and AI-powered experiences with a mix of product thinking, visual design, and curiosity.</p>
+        <p>I love taking messy, complicated systems and turning them into something simple, intuitive, and lovely to use.</p>
+        <p>And when I finally close the laptop, you'll usually find me watching movies, listening to music, or planning my next trip.</p>
+        <p>I'm currently open to new opportunities, full-time or freelance. Say hi via <a href="https://www.linkedin.com/in/vijaita-ghosh-a99a19197/" target="_blank" class="text-link">DM</a>, <a href="mailto:ghosh.vijaita@gmail.com" class="text-link">email</a>, or <a href="assets/VijaitaG.CV.pdf" target="_blank" class="text-link">view my CV</a> :)</p>
+      </div>
+
+      <div class="hero-meta">
+        <div class="datetime" id="local-time">10:15:48 PM IST</div>
+        <div class="footer-social">
+          <a href="https://www.linkedin.com/in/vijaita-ghosh-a99a19197/" target="_blank" aria-label="LinkedIn">
+  <svg viewBox="0 0 24 24" fill="currentColor">
+    <path d="M20.45 20.45h-3.56v-5.58c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.13 1.44-2.13 2.94v5.68H9.35V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM3.56 20.45h3.57V9H3.56v11.45z"/>
+  </svg>
+</a>
+          <a href="mailto:ghosh.vijaita@gmail.com" aria-label="Email">
+  <svg viewBox="0 0 24 24" fill="currentColor">
+    <path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/>
+  </svg>
+</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="projects">
+      <div class="eyebrow">Projects</div>
+      <div class="projects-grid">
+
+        <!-- SMART RECRUITER IMAGE -->
+        <button type="button" class="project-card" data-nav-key="smartRecruiter">
+          <div class="img-frame">
+  <div class="img-inner">
+    <img src="assets/images/SMARTRECRUITERPROJECT.jpg" alt="">
+  </div>
+</div>
+          <p class="project-title"><b>Smart Recruiter</b> <span class="arrow">→</span> Streamlined hiring with AI-powered job creation, interviews, and candidate workflows.</p>
+        </button>
+
+        <!-- QUBIT IMAGE -->
+        <button type="button" class="project-card" data-nav-key="qubit">
+          <div class="img-frame">
+  <div class="img-inner">
+    <img src="assets/images/INSURANCEPROJECT.jpg" alt="">
+  </div>
+</div>
+          <p class="project-title"><b>Qubit</b> <span class="arrow">→</span> Simplified complex insurance workflows by bringing multiple modules into one connected platform.</p>
+        </button>
+
+        <!-- TJB IMAGE -->
+        <button type="button" class="project-card" data-nav-key="tjb">
+          <div class="img-frame">
+  <div class="img-inner">
+    <img src="assets/images/TJBPROJECT0.jpg" alt="">
+  </div>
+</div>
+          <p class="project-title"><b>TJB Group</b> <span class="arrow">→</span> Redesigned the website to create a clearer, more professional digital presence.</p>
+        </button>
+
+        <!-- SIDEKICK IMAGE -->
+        <button type="button" class="project-card" data-nav-key="sidekick">
+          <div class="img-frame">
+  <div class="img-inner">
+    <img src="assets/images/SIDEKICKPROJECT00.jpg" alt="">
+  </div>
+</div>
+          <p class="project-title"><b>The Sidekick</b> <span class="arrow">→</span> Improved service discovery with a clear, conversion-focused website experience.</p>
+        </button>
+
+      </div>
+    </section>
+
+    <footer>
+      <div class="footer-illustration">
+  <img src="assets/images/ILLUSTRATION.jpg" alt="">
+</div>
+      <p class="footer-tag">Crafted with <span class="accent">Claude</span> &amp; chaos at 3am :)</p>
+      <div class="footer-social">
+          <a href="https://www.linkedin.com/in/vijaita-ghosh-a99a19197/" target="_blank" aria-label="LinkedIn">
+  <svg viewBox="0 0 24 24" fill="currentColor">
+    <path d="M20.45 20.45h-3.56v-5.58c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.13 1.44-2.13 2.94v5.68H9.35V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM3.56 20.45h3.57V9H3.56v11.45z"/>
+  </svg>
+</a>
+          <a href="mailto:ghosh.vijaita@gmail.com" aria-label="Email">
+  <svg viewBox="0 0 24 24" fill="currentColor">
+    <path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/>
+  </svg>
+</a>
+        </div>
+    </footer>
+
+  </div>
+</div>
+
+<!-- ============================================================
+     ABOUT PAGE
+     ============================================================ -->
+<div class="page" data-page="about">
+  <div class="container">
+    <section class="section">
+      <button type="button" class="back-link" data-nav="landing">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
+        Back
+      </button>
+
+      <h1 class="about-heading" style="margin-top: var(--inner-gap);">Hi, I'm Vijaita Ghosh.</h1>
+
+      <div class="about-copy">
+        <p>I didn't exactly follow the traditional path into design.</p>
+        <p>I studied Journalism and Mass Communication, where I was introduced to marketing and basic design. Journalism taught me how to communicate, ask questions, and understand people, and eventually I realised I wanted to use those skills to solve problems through design.</p>
+        <p>Since then, I've worked across SaaS products, CRMs, AI-powered platforms, and websites, figuring out how to turn complex requirements into experiences that feel clear and easy to use.</p>
+        <p>I'm naturally curious and probably ask "but why?" more than necessary. I like understanding how things work before jumping into Figma, and I enjoy the messy middle of design, figuring out the problem, challenging assumptions, and finding a solution that actually makes sense.</p>
+        <p>Outside of work, my interests are slightly less productive: movies, music, travelling, good food, styling, random shopping, and late-night gaming. Basically, collecting inspiration in ways that don't always look like research.</p>
+        <p>I'm currently open to work. If you're hiring, feel free to reach out via <a href="https://www.linkedin.com/in/vijaita-ghosh-a99a19197">LinkedIn</a> or <a href="mailto:ghosh.vijaita@gmail.com">email</a> — or just say hi? :)</p>
+      </div>
+
+      <hr class="hairline" style="margin: var(--inner-gap) 0 0;" />
+      <div class="italic-heading" style="margin-top: var(--inner-gap);">Things I Like</div>
+
+      <div class="interest-group">
+        <span class="label-sm">Playlists</span>
+        <div class="interest-grid">
+          <a class="interest-card" href="https://www.youtube.com/watch?v=psuRGfAaju4&list=RDpsuRGfAaju4&start_radio=1" target="_blank" rel="noopener noreferrer">
+  <div class="img-frame" style="margin: var(--inner-gap) 0;">
+    <div class="img-inner">
+      <img src="assets/images/OWLCITY.jpg" alt="">
+    </div>
+  </div>
+            <p class="interest-title">Owl City - Fireflies</p>
+          </a>
+          <a class="interest-card" href="https://www.youtube.com/watch?v=jmpUP1MaQ9Q&list=RDjmpUP1MaQ9Q&start_radio=1">  
+            <div class="img-frame" style="margin: var(--inner-gap) 0;">
+  <div class="img-inner">
+    <img src="assets/images/BHAAGMILKABHAAG.jpg" alt="">
+  </div>
+</div>
+            <p class="interest-title">O Rangrez - Bhaag Milkha Bhaag</p>
+          </a>
+          <a class="interest-card" href="https://www.youtube.com/watch?v=9Sc-ir2UwGU&list=RD9Sc-ir2UwGU&start_radio=1">
+            <div class="img-frame" style="margin: var(--inner-gap) 0;">
+  <div class="img-inner">
+    <img src="assets/images/KYGO.jpg" alt="">
+  </div>
+</div>
+            <p class="interest-title">Kygo - Firestone</p>
+          </a>
+        </div>
+      </div>
+
+      <div class="interest-group">
+        <span class="label-sm">Sites</span>
+        <div class="interest-grid">
+          <a class="interest-card" href="https://coffeereceiptstories.com/">
+            <div class="img-frame" style="margin: var(--inner-gap) 0;">
+  <div class="img-inner">
+    <img src="assets/images/COFFEE.jpg" alt="">
+  </div>
+</div>
+            <p class="interest-title">Coffee Receipe Stories</p>
+          </a>
+          <a class="interest-card" href="https://yuenye.com/">
+            <div class="img-frame" style="margin: var(--inner-gap) 0;">
+  <div class="img-inner">
+    <img src="assets/images/YUEN.jpg" alt="">
+  </div>
+</div>
+            <p class="interest-title">Yuen Ye</p>
+          </a>
+          <a class="interest-card" href="https://mooosor.ru/eng">
+            <div class="img-frame" style="margin: var(--inner-gap) 0;">
+  <div class="img-inner">
+    <img src="assets/images/GARBAGE.jpg" alt="">
+  </div>
+</div>
+            <p class="interest-title">Garbage</p>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="footer-illustration">
+  <img src="assets/images/ILLUSTRATION.jpg" alt="">
+</div>
+      <p class="footer-tag">Crafted with <span class="accent">Claude</span> &amp; chaos at 3am :)</p>
+      <div class="footer-social">
+          <a href="https://www.linkedin.com/in/vijaita-ghosh-a99a19197/" target="_blank" aria-label="LinkedIn">
+  <svg viewBox="0 0 24 24" fill="currentColor">
+    <path d="M20.45 20.45h-3.56v-5.58c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.13 1.44-2.13 2.94v5.68H9.35V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM3.56 20.45h3.57V9H3.56v11.45z"/>
+  </svg>
+</a>
+          <a href="mailto:ghosh.vijaita@gmail.com" aria-label="Email">
+  <svg viewBox="0 0 24 24" fill="currentColor">
+    <path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/>
+  </svg>
+</a>
+        </div>
+    </footer>
+  </div>
+</div>
+
+<!-- ============================================================
+     SMART RECRUITER
+     ============================================================ -->
+<div class="page" data-page="smart-recruiter">
+  <div class="container">
+    <section class="section">
+      <button type="button" class="back-link" data-nav="landing">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
+        Back
+      </button>
+    </section>
+
+    <section class="section case-hero" style="padding-top: var(--inner-gap);">
+      <h1>Smart Recruiter - Hiring, reimagined with AI.</h1>
+      <p class="case-intro">A recruitment platform designed to reduce repetitive work for recruiters while creating a clear, guided experience for candidates.</p>
+      <hr class="hairline" />
+      <div class="meta-grid">
+        <div class="meta-item"><div class="label-sm">Role</div><div class="value">Product designer</div></div>
+        <div class="meta-item"><div class="label-sm">Year</div><div class="value">25-2026</div></div>
+        <div class="meta-item"><div class="label-sm">Timeline</div><div class="value">16 weeks</div></div>
+        <div class="meta-item" id="sr-team-item"><div class="label-sm">Team</div><div class="value">Manager, Team Mates, Developers</div></div>
+      </div>
+    </section>
+
+    <section class="section case-body">
+      <blockquote>"Hiring should feel simpler. AI should do the heavy lifting."</blockquote>
+      <p style="margin-top: var(--inner-gap);">That was the direction that came out of our stakeholder discussions while working on Smart Recruiter. The platform had to support a complete hiring journey, from creating jobs and managing candidates to conducting interviews and evaluating them, without making the experience feel complex.</p>
+      <p>The challenge was finding the right places for AI to actually help. We discussed how AI could reduce repetitive work for recruiters, while still keeping them in control of important decisions.</p>
+      <p>That led us to focus on a few key areas: <b>AI-powered job creation</b>, <b>AI interviews</b>, and bringing interview insights together within the candidate profile so recruiters could review and compare candidates more easily.</p>
+      <p>On the <b>candidate side</b>, the focus was different: making the application and interview experience feel simple, clear, and guided.</p>
+    </section>
+
+    <section class="section case-body">
+      <div class="eyebrow">The Challenge</div>
+      <p style="margin-top: 20px;">When we started designing Smart Recruiter, the goal was simple: make the hiring process faster and easier with AI. But the recruitment journey involved several complex steps:</p>
+      <ul>
+        <li>Creating and setting up a job required manual effort.</li>
+        <li>Recruiters had to manage candidates and interviews across different stages.</li>
+        <li>Reviewing interview results and comparing candidates could become time-consuming.</li>
+        <li>Candidates also needed a simple and guided experience from application to interview.</li>
+      </ul>
+      <blockquote>For recruiters, the process could feel time-consuming. For candidates, the experience needed to feel simple and clear. The challenge was finding the right places for AI to reduce effort without making the hiring experience more complicated.</blockquote>
+
+      <div class="persona-grid" style="margin-top: 32px;">
+        <div class="persona-card">
+          <h3>Saumya Sinha <span>- Talent Acquisition Specialist</span></h3><hr />
+          <ul><li>"Creating & managing candidates takes too much time."</li><li>"I need an easier way to review interview results."</li></ul>
+        </div>
+        <div class="persona-card">
+          <h3>Aditya Singh <span>- Software Engineer</span></h3><hr />
+          <ul><li>"The interview process should feel simple and guided."</li><li>"I want to know what happens at each step."</li></ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section case-body">
+      <div class="eyebrow">The Problem</div>
+      <p style="margin-top: 20px;">Smart Recruiter had the potential to simplify hiring, but the process involved multiple complex workflows across job creation, candidate management, interviews, and evaluation. Recruiters needed to spend time on repetitive tasks, while candidates needed a more guided and straightforward experience.</p>
+      <div class="case-subheading italic">Why this problem mattered for Smart Recruiter?</div>
+      <ol>
+        <li>Hiring involves multiple users and stages, making consistency and simplicity critical.</li>
+        <li>AI was a key part of the product, but it needed to solve real problems rather than add complexity.</li>
+        <li>Making recruitment faster and easier for both recruiters and candidates was central to creating a better hiring experience.</li>
+      </ol>
+    </section>
+
+    <section class="section case-body">
+      <div class="eyebrow">Screens</div>
+
+      <div class="screen-block">
+        <div class="screen-num">01 — AI-Powered Job Creation</div>
+        <p>Recruiters often spend time manually creating job descriptions and defining requirements. I introduced AI to help generate the initial job setup from basic inputs, while keeping the recruiter in control to review and edit the output.</p>
+        <!-- SMART RECRUITER IMAGE -->
+        <div class="img-frame">
+  <div class="img-inner">
+    <img src="assets/images/CREATE NEW JOB.jpg" alt="">
+  </div>
+</div>
+        <p>The experience was designed to make AI feel like an assistant rather than another complex step in the workflow.</p>
+        <!-- SMART RECRUITER IMAGE -->
+        <div class="img-frame">
+  <div class="img-inner">
+    <img src="assets/images/CHAT AI.jpg" alt="">
+  </div>
+</div>
+      </div>
+
+      <div class="screen-block">
+        <div class="screen-num">02 — AI Interview</div>
+        <p>The interview experience needed to work for candidates without making AI feel intimidating. I designed a guided flow that prepares the candidate, checks their system, and clearly communicates what is happening before the interview begins.</p>
+        <!-- SMART RECRUITER IMAGE -->
+        <div class="img-frame">
+  <div class="img-inner">
+    <img src="assets/images/System Check.jpg" alt="">
+  </div>
+</div>
+        <p>The AI then conducts the interview while keeping the interaction focused and easy to follow.</p>
+        <!-- SMART RECRUITER IMAGE -->
+        <div class="img-frame">
+  <div class="img-inner">
+    <img src="assets/images/Code.jpg" alt="">
+  </div>
+</div>
+      </div>
+
+      <div class="screen-block">
+        <div class="screen-num">03 — Candidate Profile &amp; Evaluation</div>
+        <p>After an interview, recruiters need to quickly understand how a candidate performed without going through information scattered across different stages. I brought the candidate's key information and interview evaluation together in one place.</p>
+        <!-- SMART RECRUITER IMAGE -->
+        <div class="img-frame">
+  <div class="img-inner">
+    <img src="assets/images/Candidate Listing.jpg" alt="">
+  </div>
+</div>
+        <p>This gives recruiters a clearer view of the candidate and makes it easier to review interview performance and make hiring decisions.</p>
+        <!-- SMART RECRUITER IMAGE -->
+        <div class="img-frame">
+  <div class="img-inner">
+    <img src="assets/images/Candidate Profile.jpg" alt="">
+  </div>
+</div>
+      </div>
+    </section>
+
+    <section class="section case-body">
+      <blockquote>AI wasn't added everywhere. I focused on the moments where it could reduce repetitive work, guide users through complex tasks, and help recruiters make better decisions.</blockquote>
+    </section>
+
+    <section class="section case-body">
+      <div class="eyebrow">What changed?</div>
+      <ol style="margin-top: 20px;">
+        <li>Faster job creation → AI reduced repetitive work for recruiters.</li>
+        <li>Simpler interviews → Candidates could complete AI-led interviews through a more guided experience.</li>
+        <li>Better candidate evaluation → Interview insights were organized in one place, making candidates easier to review and compare.</li>
+        <li>More connected hiring → Recruiters and candidates could move through the hiring journey within one platform.</li>
+      </ol>
+    </section>
+
+    <section class="section case-body">
+      <div class="eyebrow">Reflection</div>
+      <p style="margin-top: 20px;">This project taught me that AI design isn't about adding AI everywhere, it's about using it where it genuinely helps.</p>
+      <p>Working on Smart Recruiter helped me understand how to design AI experiences that feel useful without taking control away from the user. From AI-powered job creation to AI interviews and candidate evaluation, the focus was always on reducing effort and making complex processes easier.</p>
+      <p>It also taught me to think about both sides of a product, making the recruiter's work more efficient while keeping the candidate experience simple and guided. Most importantly, I learned that good AI design should feel helpful, clear, and natural, not intimidating.</p>
+    </section>
+
+    <footer>
+      <div class="footer-illustration">
+  <img src="assets/images/ILLUSTRATION.jpg" alt="">
+</div>
+      <p class="footer-tag">Crafted with <span class="accent">Claude</span> &amp; chaos at 3am :)</p>
+      <div class="footer-social">
+          <a href="https://www.linkedin.com/in/vijaita-ghosh-a99a19197/" target="_blank" aria-label="LinkedIn">
+  <svg viewBox="0 0 24 24" fill="currentColor">
+    <path d="M20.45 20.45h-3.56v-5.58c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.13 1.44-2.13 2.94v5.68H9.35V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM3.56 20.45h3.57V9H3.56v11.45z"/>
+  </svg>
+</a>
+          <a href="mailto:ghosh.vijaita@gmail.com" aria-label="Email">
+  <svg viewBox="0 0 24 24" fill="currentColor">
+    <path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/>
+  </svg>
+</a>
+        </div>
+    </footer>
+  </div>
+</div>
+
+<!-- ============================================================
+     QUBIT
+     ============================================================ -->
+<div class="page" data-page="qubit">
+  <div class="container">
+    <section class="section">
+      <button type="button" class="back-link" data-nav="landing">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
+        Back
+      </button>
+    </section>
+
+    <section class="section case-hero" style="padding-top: var(--inner-gap);">
+      <h1>Qubit V01 - Simplifying complex insurance operations.</h1>
+      <p class="case-intro">An insurance CRM built for brokers, admins, and accountants to manage the complete client lifecycle, from policies, to documents, tasks, and accounting, all within one connected workspace.</p>
+      <hr class="hairline" />
+      <div class="meta-grid">
+        <div class="meta-item"><div class="label-sm">Role</div><div class="value">UI/UX designer</div></div>
+        <div class="meta-item"><div class="label-sm">Year</div><div class="value">24-2025</div></div>
+        <div class="meta-item"><div class="label-sm">Timeline</div><div class="value">34 weeks</div></div>
+        <div class="meta-item"><div class="label-sm">Team</div><div class="value">Founder, Developers</div></div>
+      </div>
+    </section>
+
+    <section class="section case-body">
+      <div class="eyebrow">The Challenge</div>
+      <p style="margin-top: 20px;">The client already had a working tool, but managing insurance operations meant juggling between multiple systems. Client information lived in one place, documents were managed through tools like Google Drive or Dropbox, financial work happened separately, and different teams had their own ways of managing tasks.</p>
+      <blockquote>"We want our teams to manage the entire client journey from one place. Right now, they have to switch between different systems for policies, documents, tasks, and accounting. We need a CRM that brings everything together while keeping the experience simple for our teams."</blockquote>
+      <div class="case-subheading italic">What we heard from the team!</div>
+      <div class="feature-list">
+        <div class="feature-row"><div class="ftitle">Too many systems</div><div class="fdesc">Teams had to switch between different tools to complete one workflow.</div></div>
+        <div class="feature-row"><div class="ftitle">Complex information</div><div class="fdesc">A single client could have policies, claims, documents, tasks, and financial records connected to them.</div></div>
+        <div class="feature-row"><div class="ftitle">Different users, different needs</div><div class="fdesc">Brokers, admins, and accountants worked differently but needed to use the same platform.</div></div>
+        <div class="feature-row"><div class="ftitle">An older user base</div><div class="fdesc">The product needed to be simple and familiar while still being powerful enough to handle complex insurance operations.</div></div>
+      </div>
+    </section>
+
+    <section class="section case-body">
+      <div class="eyebrow">Bringing the workflow together</div>
+      <p style="margin-top: 20px;">The goal was to create one connected workspace around the entire client lifecycle, instead of making teams switch between different systems for different tasks.</p>
+      <p>We organized the product around key workflows including Clients, Policies, Quotes, Claims, Tasks, Activities, Notes, and Files, with a dedicated Accounting module covering invoices, payments received, payments made, general ledger, and reconciliation.</p>
+      <!-- QUBIT IMAGE -->
+      <div class="img-frame" style="margin: var(--inner-gap) 0;">
+  <div class="img-inner">
+    <img src="assets/images/NEWNAV.jpg" alt="">
+  </div>
+</div>
+      <p>The navigation brought these interconnected workflows into one place, giving users a clear way to move from a client and their policies to related claims, documents, tasks, and financial information.</p>
+    </section>
+
+    <section class="section case-body">
+      <div class="eyebrow">Designing around the users</div>
+      <p style="margin-top: 20px;">A big part of the project was understanding how the CRM was actually being used before changing the experience. Since Qubit already had an existing system, I looked beyond stakeholder requirements and studied real user behaviour, existing workflows, and the tools teams were using alongside the CRM.</p>
+      <div class="case-subheading italic">How we understood the users</div>
+      <div class="feature-list">
+        <div class="feature-row"><div class="ftitle">Stakeholder Discussions</div><div class="fdesc">We spoke with the client and internal stakeholders to understand business goals, user responsibilities, and pain points.</div></div>
+        <div class="feature-row"><div class="ftitle">User Behaviour</div><div class="fdesc">We used session-behaviour analysis to observe how users navigated the existing product, where they clicked, what they used frequently, and where they experienced friction.</div></div>
+        <div class="feature-row"><div class="ftitle">Existing Workflows</div><div class="fdesc">We looked at how teams managed information across the CRM and other tools, helping us identify where workflows were fragmented or duplicated.</div></div>
+        <div class="feature-row"><div class="ftitle">Role-Based Access</div><div class="fdesc">We mapped the different responsibilities of brokers, admins, and accountants to understand what each role actually needed from the platform.</div></div>
+      </div>
+      <div class="persona-grid thirds">
+        <div class="persona-card"><h3>Broker</h3><hr /><ul><li>"I need a quick view of my clients and everything related to them."</li></ul></div>
+        <div class="persona-card"><h3>Admin</h3><hr /><ul><li>"I need to keep everything organized and make sure nothing gets missed."</li></ul></div>
+        <div class="persona-card"><h3>Accountant</h3><hr /><ul><li>"I need all the financial information connected and easy to track."</li></ul></div>
+      </div>
+    </section>
+
+    <section class="section case-body">
+      <div class="eyebrow">What I focused on as a designer</div>
+      <p style="margin-top: 20px;">Throughout the project, my focus was less on adding more features and more on making a complex system easier to understand.</p>
+      <p style="margin-bottom: 8px;">I worked on end to end process, including:</p>
+      <ul>
+        <li>Information architecture</li><li>Navigation and nesting</li><li>Role-based experiences</li>
+        <li>Complex workflows</li><li>UI and reusable components</li><li>Design system consistency</li>
+      </ul>
+    </section>
+
+    <section class="section case-body">
+      <div class="eyebrow">The hardest part — Accounting</div>
+      <p style="margin-top: 20px;">The Accounting module was the most challenging part of the CRM because it was a completely new domain for me, beyond insurance itself. Before designing it, I had to understand how accountants worked and how each financial activity connected.</p>
+      <!-- QUBIT IMAGE -->
+       <div class="img-frame" style="margin: var(--inner-gap) 0;">
+  <div class="img-inner">
+    <img src="assets/images/USER FLOW.jpg" alt="">
+  </div>
+</div>
+      <p>The biggest challenge was understanding these connections and turning them into a workflow that felt natural for accountants while remaining simple enough for admins without deep financial knowledge.</p>
+      <!-- QUBIT IMAGE -->
+       <div class="img-frame" style="margin: var(--inner-gap) 0;">
+  <div class="img-inner">
+    <img src="assets/images/INVOICES.jpg" alt="">
+  </div>
+</div>
+    </section>
+
+    <section class="section case-body">
+      <div class="eyebrow">Impact</div>
+      <p class="impact-text" style="margin-top: 20px;">The platform is currently being used by <b>60+ agents</b>, with <b>98% user satisfaction</b> across the existing workflow. As the product continues to evolve from an insurance tool into a scalable SaaS platform, it is being prepared to support multiple brokers and insurance teams worldwide, making the work an important foundation for its next stage of growth.</p>
+      <blockquote style="margin-top: var(--inner-gap);">"Qubit taught me that good enterprise design isn't about simplifying the business itself, but making complex business processes feel simple for the people using them."</blockquote>
+    </section>
+
+    <footer>
+      <div class="footer-illustration">
+  <img src="assets/images/ILLUSTRATION.jpg" alt="">
+</div>
+      <p class="footer-tag">Crafted with <span class="accent">Claude</span> &amp; chaos at 3am :)</p>
+      <div class="footer-social">
+          <a href="https://www.linkedin.com/in/vijaita-ghosh-a99a19197/" target="_blank" aria-label="LinkedIn">
+  <svg viewBox="0 0 24 24" fill="currentColor">
+    <path d="M20.45 20.45h-3.56v-5.58c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.13 1.44-2.13 2.94v5.68H9.35V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM3.56 20.45h3.57V9H3.56v11.45z"/>
+  </svg>
+</a>
+          <a href="mailto:ghosh.vijaita@gmail.com" aria-label="Email">
+  <svg viewBox="0 0 24 24" fill="currentColor">
+    <path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/>
+  </svg>
+</a>
+        </div>
+</footer>
+  </div>
+</div>
+
+<!-- ============================================================
+     TJB
+     ============================================================ -->
+<div class="page" data-page="tjb">
+  <div class="container">
+    <section class="section">
+      <button type="button" class="back-link" data-nav="landing">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
+        Back
+      </button>
+    </section>
+
+    <section class="section case-hero" style="padding-top: var(--inner-gap);">
+      <h1>TJB - Building a digital presence for a global construction company.</h1>
+      <p class="case-intro">A website designed to communicate TJB's expertise, services, and projects through a more structured and modern experience.</p>
+      <a class="case-live-link" href="https://tjbgroups.com/global" target="_blank" rel="noopener">
+  <span>Live Website Link</span>
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M5 12h14"/>
+    <path d="M13 6l6 6-6 6"/>
+  </svg>
+</a>
+      <hr class="hairline" />
+      <div class="meta-grid">
+        <div class="meta-item"><div class="label-sm">Role</div><div class="value">UI/UX designer</div></div>
+        <div class="meta-item"><div class="label-sm">Year</div><div class="value">2026</div></div>
+        <div class="meta-item"><div class="label-sm">Timeline</div><div class="value">1 week</div></div>
+        <div class="meta-item"><div class="label-sm">Team</div><div class="value">Developer</div></div>
+      </div>
+    </section>
+
+    <section class="section case-body">
+      <div class="eyebrow">The Challenge</div>
+      <p style="margin-top: 20px;">TJB needed a website that could present a wide range of construction and consultancy services without overwhelming visitors.</p>
+      <p>The focus was to create a clearer information hierarchy, stronger visual presence, and easier navigation while keeping the brand professional and trustworthy.</p>
+      <!-- TJB IMAGE -->
+      <div class="img-frame" style="margin: var(--inner-gap) 0;">
+  <div class="img-inner">
+    <img src="assets/images/TJB 1.jpg" alt="">
+  </div>
+</div>
+    </section>
+
+    <section class="section case-body">
+      <div class="eyebrow">Understanding the content</div>
+      <p style="margin-top: 20px;">The website had to communicate several things quickly. I structured the content so visitors could understand what <b>TJB does</b>, the <b>work they've done</b>, and why they should trust them without having to dig through the website.</p>
+      <!-- TJB IMAGE -->
+      <div class="img-frame" style="margin: var(--inner-gap) 0;">
+  <div class="img-inner">
+    <img src="assets/images/TJB 2.jpg" alt="">
+  </div>
+</div>
+    </section>
+
+    <section class="section case-body">
+      <div class="eyebrow">Designing the experience</div>
+      <p style="margin-top: 20px;">I focused on creating a clean, editorial-style layout with strong typography, visual hierarchy, and clear sections. Large imagery was used to showcase projects, while concise content and clear CTAs helped users move through the site naturally.</p>
+      <!-- TJB IMAGE -->
+      <div class="img-frame" style="margin: var(--inner-gap) 0;">
+  <div class="img-inner">
+    <img src="assets/images/TJB 3.jpg" alt="">
+  </div>
+</div>
+    </section>
+
+    <section class="section case-body">
+      <div class="eyebrow">Visual direction</div>
+      <p style="margin-top: 20px;">The design balances professionalism with a contemporary feel, using typography, spacing, imagery, and subtle interactions to give the website a more polished identity.</p>
+      <!-- TJB IMAGE -->
+      <div class="img-frame" style="margin: var(--inner-gap) 0;">
+  <div class="img-inner">
+    <img src="assets/images/TYPEFACE1.jpg" alt="">
+  </div>
+</div>
+    </section>
+
+    <section class="section case-body">
+      <div class="eyebrow">Result</div>
+      <p style="margin-top: 20px;">The result was a more structured and modern digital presence that makes TJB's services, expertise, and project work easier to discover.</p>
+      <blockquote style="margin-top: var(--inner-gap);">"This project taught me how much impact strong content structure and visual hierarchy can have on a website, even without adding unnecessary complexity."</blockquote>
+    </section>
+
+    <footer>
+      <div class="footer-illustration">
+  <img src="assets/images/ILLUSTRATION.jpg" alt="">
+</div>
+      <p class="footer-tag">Crafted with <span class="accent">Claude</span> &amp; chaos at 3am :)</p>
+      <div class="footer-social">
+          <a href="https://www.linkedin.com/in/vijaita-ghosh-a99a19197/" target="_blank" aria-label="LinkedIn">
+  <svg viewBox="0 0 24 24" fill="currentColor">
+    <path d="M20.45 20.45h-3.56v-5.58c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.13 1.44-2.13 2.94v5.68H9.35V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM3.56 20.45h3.57V9H3.56v11.45z"/>
+  </svg>
+</a>
+          <a href="mailto:ghosh.vijaita@gmail.com" aria-label="Email">
+  <svg viewBox="0 0 24 24" fill="currentColor">
+    <path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/>
+  </svg>
+</a>
+        </div>
+    </footer>
+  </div>
+</div>
+
+<!-- ============================================================
+     SIDEKICK
+     ============================================================ -->
+<div class="page" data-page="sidekick">
+  <div class="container">
+    <section class="section">
+      <button type="button" class="back-link" data-nav="landing">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
+        Back
+      </button>
+    </section>
+
+    <section class="section case-hero" style="padding-top: var(--inner-gap);">
+      <h1>The Sidekick - Building a digital presence for a service-based platform.</h1>
+      <p class="case-intro">A website designed to clearly communicate The Sidekick's services and make it easier for visitors to understand what the platform offers.</p>
+      <a class="case-live-link" href="https://thesidekick.xyz/" target="_blank" rel="noopener">
+  <span>Live Website Link</span>
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M5 12h14"/>
+    <path d="M13 6l6 6-6 6"/>
+  </svg>
+</a>
+      <hr class="hairline" />
+      <div class="meta-grid">
+        <div class="meta-item"><div class="label-sm">Role</div><div class="value">UI/UX designer</div></div>
+        <div class="meta-item"><div class="label-sm">Year</div><div class="value">2026</div></div>
+        <div class="meta-item"><div class="label-sm">Timeline</div><div class="value">1 week</div></div>
+        <div class="meta-item"><div class="label-sm">Team</div><div class="value">Developer</div></div>
+      </div>
+    </section>
+
+    <section class="section case-body">
+      <div class="eyebrow">The Challenge</div>
+      <p style="margin-top: 20px;">The Sidekick needed a website that could explain its services clearly while creating a strong and trustworthy first impression.</p>
+      <p>The focus was to simplify the content, create a clear hierarchy, and make it easier for visitors to understand the offering and take action.</p>
+      <!-- SIDEKICK IMAGE -->
+      <div class="img-frame" style="margin: var(--inner-gap) 0;">
+  <div class="img-inner">
+    <img src="assets/images/SIDEKICK1.jpg" alt="">
+  </div>
+</div>
+    </section>
+
+    <section class="section case-body">
+      <div class="eyebrow">Structuring the experience</div>
+      <p style="margin-top: 20px;">The website needed to communicate the key information quickly. I structured the content into clear sections so visitors could quickly understand what The Sidekick offers, <b>how it works</b>, and <b>why they should choose it</b>.</p>
+      <!-- SIDEKICK IMAGE -->
+      <div class="img-frame" style="margin: var(--inner-gap) 0;">
+  <div class="img-inner">
+    <img src="assets/images/SIDEKICK2.jpg" alt="">
+  </div>
+</div>
+    </section>
+
+    <section class="section case-body">
+      <div class="eyebrow">Designing the experience</div>
+      <p style="margin-top: 20px;">I focused on creating a clean and approachable interface with clear typography, strong visual hierarchy, concise content, and clear CTAs. The design was kept simple so the service remained the focus rather than the interface competing for attention.</p>
+      <!-- SIDEKICK IMAGE -->
+      <div class="img-frame" style="margin: var(--inner-gap) 0;">
+  <div class="img-inner">
+    <img src="assets/images/SIDEKICK3.jpg" alt="">
+  </div>
+</div>
+    </section>
+
+    <section class="section case-body">
+      <div class="eyebrow">Visual direction</div>
+      <p style="margin-top: 20px;">The visual direction combines bright accents with muted tones, creating a playful yet polished personality. Quirky visual elements, bold typography, and subtle interactions keep the experience feeling modern, approachable, and distinctive without taking attention away from the content. The goal was to make the brand feel less corporate and more human, while still keeping the service clear and professional.</p>
+      <!-- SIDEKICK IMAGE -->
+      <div class="img-frame" style="margin: var(--inner-gap) 0;">
+  <div class="img-inner">
+    <img src="assets/images/TYPEFACE2.jpg" alt="">
+  </div>
+</div>
+    </section>
+
+    <section class="section case-body">
+      <div class="eyebrow">Result</div>
+      <p style="margin-top: 20px;">The result was a more structured and modern digital presence that makes The Sidekick's services, expertise, and value proposition easier to discover.</p>
+      <blockquote style="margin-top: var(--inner-gap);">"This project taught me how much impact strong content structure and visual hierarchy can have on a website, even without adding unnecessary complexity."</blockquote>
+    </section>
+
+    <footer>
+      <div class="footer-illustration">
+  <img src="assets/images/ILLUSTRATION.jpg" alt="">
+</div>
+      <p class="footer-tag">Crafted with <span class="accent">Claude</span> &amp; chaos at 3am :)</p>
+      <div class="footer-social">
+          <a href="https://www.linkedin.com/in/vijaita-ghosh-a99a19197/" target="_blank" aria-label="LinkedIn">
+  <svg viewBox="0 0 24 24" fill="currentColor">
+    <path d="M20.45 20.45h-3.56v-5.58c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.13 1.44-2.13 2.94v5.68H9.35V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM3.56 20.45h3.57V9H3.56v11.45z"/>
+  </svg>
+</a>
+          <a href="mailto:ghosh.vijaita@gmail.com" aria-label="Email">
+  <svg viewBox="0 0 24 24" fill="currentColor">
+    <path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/>
+  </svg>
+</a>
+        </div>
+    </footer>
+  </div>
+</div>
+
+<!-- ============================================================
+     ROUTER
+     Handles switching between "pages" via data-nav / data-nav-key
+     attributes, keeps the URL hash in sync so links are shareable,
+     and supports browser back/forward.
+     ============================================================ -->
+<script>
+  // Pure in-memory page router — no history API / window.open calls,
+  // since both can throw SecurityError inside a sandboxed preview iframe.
+  // Internal navigation just toggles which .page is visible.
+  //
+  // To point a project at an external URL later, change its value in
+  // PROJECT_LINKS to a full "https://..." link. navigateTo() below will
+  // then set that link as a normal <a href> target instead of routing
+  // internally — no window.open needed.
+
+  function navigateTo(pageId){
+    const target = PROJECT_LINKS[pageId] || pageId;
+
+    document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
+    const el = document.querySelector('.page[data-page="' + target + '"]');
+    if (el) {
+      el.classList.add("active");
+      window.scrollTo(0, 0);
+    }
+  }
+
+  document.addEventListener("click", (e) => {
+    const navEl = e.target.closest("[data-nav]");
+    if (navEl) { navigateTo(navEl.getAttribute("data-nav")); return; }
+
+    const keyEl = e.target.closest("[data-nav-key]");
+    if (keyEl) {
+      const key = keyEl.getAttribute("data-nav-key");
+      const target = PROJECT_LINKS[key];
+      // External URL → let it behave like a normal link (no window.open).
+      if (/^https?:\/\//.test(target)) return;
+      navigateTo(key);
+    }
+  });
+
+  document.addEventListener("DOMContentLoaded", () => {
+    navigateTo("landing");
+    startClock();
+  });
+
+  // Live India Standard Time clock — always Asia/Kolkata, regardless
+  // of the viewer's own timezone. Updates every second.
+  function startClock(){
+    const el = document.getElementById("local-time");
+    if (!el) return;
+
+    function update(){
+      const now = new Date();
+      const parts = new Intl.DateTimeFormat("en-US", {
+        timeZone: "Asia/Kolkata",
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+        hour12: true,
+      }).formatToParts(now);
+
+      const get = (type) => parts.find(p => p.type === type)?.value || "";
+      const time = `${get("hour")}:${get("minute")}:${get("second")} ${get("dayPeriod").toUpperCase()}`;
+
+      el.textContent = `${time} IST`;
+    }
+
+    update();
+    setInterval(update, 1000);
+  }
+</script>
+
+</body>
+</html>
