@@ -1866,48 +1866,194 @@ footer{ padding-top: 140px; padding-bottom: 120px; text-align: center; }
 <!-- ============================================================
      ROUTER
      Handles switching between "pages" via data-nav / data-nav-key
-     attributes, keeps the URL hash in sync so links are shareable,
-     and supports browser back/forward.
+     attributes, keeps the URL hash in sync, and supports
+     browser back/forward.
      ============================================================ -->
 <script>
-  // Pure in-memory page router — no history API / window.open calls,
-  // since both can throw SecurityError inside a sandboxed preview iframe.
-  // Internal navigation just toggles which .page is visible.
-  //
-  // To point a project at an external URL later, change its value in
-  // PROJECT_LINKS to a full "https://..." link. navigateTo() below will
-  // then set that link as a normal <a href> target instead of routing
-  // internally — no window.open needed.
 
-  function navigateTo(pageId){
+  function navigateTo(pageId, addToHistory = true){
+
     const target = PROJECT_LINKS[pageId] || pageId;
 
-    document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
-    const el = document.querySelector('.page[data-page="' + target + '"]');
+    document.querySelectorAll(".page").forEach(p => {
+      p.classList.remove("active");
+    });
+
+    const el = document.querySelector(
+      '.page[data-page="' + target + '"]'
+    );
+
     if (el) {
+
       el.classList.add("active");
+
       window.scrollTo(0, 0);
+
+      /*
+       * Add the page to browser history.
+       *
+       * Example:
+       * #landing
+       * #about
+       * #qubit
+       * #smart-recruiter
+       */
+      if (addToHistory) {
+
+        history.pushState(
+          { page: target },
+          "",
+          "#" + target
+        );
+
+      }
+
     }
   }
 
+
+  /*
+   * Handle clicks on internal navigation.
+   */
   document.addEventListener("click", (e) => {
+
     const navEl = e.target.closest("[data-nav]");
-    if (navEl) { navigateTo(navEl.getAttribute("data-nav")); return; }
+
+    if (navEl) {
+
+      navigateTo(
+        navEl.getAttribute("data-nav")
+      );
+
+      return;
+    }
+
 
     const keyEl = e.target.closest("[data-nav-key]");
+
     if (keyEl) {
+
       const key = keyEl.getAttribute("data-nav-key");
       const target = PROJECT_LINKS[key];
-      // External URL → let it behave like a normal link (no window.open).
-      if (/^https?:\/\//.test(target)) return;
+
+      /*
+       * External URL → let the normal link behavior happen.
+       */
+      if (/^https?:\/\//.test(target)) {
+        return;
+      }
+
       navigateTo(key);
+
     }
+
   });
 
-  document.addEventListener("DOMContentLoaded", () => {
-    navigateTo("landing");
-    startClock();
+
+  /*
+   * Browser Back / Forward.
+   *
+   * When the user presses the browser back button,
+   * phone back gesture, or browser forward button,
+   * show the corresponding page.
+   */
+  window.addEventListener("popstate", () => {
+
+    const page =
+      window.location.hash.replace("#", "") || "landing";
+
+    navigateTo(page, false);
+
   });
+
+
+  /*
+   * Load the correct page when the website opens.
+   *
+   * If there is no hash → Landing page.
+   *
+   * If the URL contains:
+   *
+   * #about
+   * #qubit
+   * #smart-recruiter
+   * #tjb
+   * #sidekick
+   *
+   * that page will open directly.
+   */
+  document.addEventListener("DOMContentLoaded", () => {
+
+    const page =
+      window.location.hash.replace("#", "") || "landing";
+
+    /*
+     * If there is no hash on the first visit,
+     * create the initial landing-page history entry.
+     */
+    if (!window.location.hash) {
+
+      history.replaceState(
+        { page: "landing" },
+        "",
+        "#landing"
+      );
+
+    }
+
+    navigateTo(page, false);
+
+    startClock();
+
+  });
+
+
+  /*
+   * Live India Standard Time clock.
+   */
+  function startClock(){
+
+    const el = document.getElementById("local-time");
+
+    if (!el) return;
+
+
+    function update(){
+
+      const now = new Date();
+
+      const parts = new Intl.DateTimeFormat("en-US", {
+
+        timeZone: "Asia/Kolkata",
+
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+
+        hour12: true
+
+      }).formatToParts(now);
+
+
+      const get = (type) =>
+        parts.find(p => p.type === type)?.value || "";
+
+
+      const time =
+        `${get("hour")}:${get("minute")}:${get("second")} ${get("dayPeriod").toUpperCase()}`;
+
+
+      el.textContent = `${time} IST`;
+
+    }
+
+
+    update();
+
+    setInterval(update, 1000);
+
+  }
+
 
   // Live India Standard Time clock — always Asia/Kolkata, regardless
   // of the viewer's own timezone. Updates every second.
